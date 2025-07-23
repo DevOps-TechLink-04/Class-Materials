@@ -1,0 +1,438 @@
+DOCKER  
+======
+
+Deployment types:
+  1. Physical Server (laptop)
+  2. Virtual Server  (ec2-instances)
+  3. Containers       
+
+CONTAINERISATION:
+Containerization is the process of packaging software 
+code along with its required dependencies* 
+(such as libraries and configuration files) to create a 
+lightweight, self-contained executable unit called a 
+container. These containers run consistently across any 
+infrastructure, making them highly portable and 
+resource-efficient.
+
+
+Microservice Architecture: Containers are essential for 
+building cloud-native applications using microservices.
+
+Containerization Softwares:
+  - Docker ( > 80%)
+  - Rocket
+  - Pod man
+  - Container-D
+  - Etc
+
+Docker:
+Docker is an open-source containerization platform that 
+allows developers to package applications and their 
+dependencies into standardized units called containers. 
+
+Note:
+  Application dependencies refer to external components 
+  or resources that an application relies on to function 
+  correctly.
+
+1. Libraries: These are collections of pre-written code 
+   that developers can use to perform common tasks 
+   without having to write the code from scratch. For instance, 
+   React applications often depend on Babel for browser 
+   compatibility.
+
+2. Frameworks: Frameworks provide a foundation for building 
+   applications. For example, Django, a Python web framework, 
+   depends on Pillow for image processing.
+
+3. Databases: Many applications require a database to store data. 
+   Common SQL databases include SQL Server, Oracle, PostgreSQL, 
+   MySQL, and SQLite. NoSQL or document databases like MongoDB and 
+   Cassandra are also popular.
+
+4. Caching Systems: To improve performance, applications might use 
+   caching solutions such as Redis, Memcached, or AppFabric to store 
+   frequently accessed data.
+5. Message Queues: These are used for asynchronous communication between 
+   different parts of an application, or with other applications. They 
+   help in decoupling components and managing data flow.
+
+6. External Services: Applications may depend on external HTTP-based web 
+   services or APIs for functionalities like payment processing, sending 
+   emails, or social media integration.
+
+7. Package Managers: Tools like PIP for Python, Yarn or NPM for Node.js, 
+   and Maven for Java manage the dependencies of an application by handling 
+   the installation, upgrade, and configuration of libraries and frameworks.
+
+   These dependencies are crucial for the application’s operation and must be 
+   correctly managed to ensure the application runs smoothly.
+
+Here’s why Docker is widely used:
+
+Portability: Containers are lightweight and portable. 
+You can create an application once and run it consistently 
+across different environments, from development to production.
+
+Isolation: Each container runs in its own isolated environment, 
+ensuring that it doesn’t interfere with other containers or the 
+underlying infrastructure.
+
+Efficiency: Docker simplifies the setup and deployment of 
+development environments. Developers can focus on writing code 
+without worrying about complex environment configuration.
+
+Versatility: Docker works seamlessly with various development 
+tools, including IDEs, command-line interfaces, and cloud 
+services.
+
+Trusted Content: Docker Hub provides a central repository for sharing 
+and discovering container images, including trusted content from Docker 
+Verified Publishers and Docker Official Images.
+
+---
+
+Docker is a containerization software used to create, build and 
+  deploy applications as containers.
+    - create/Build applications  
+    - ship applications  
+    - deploy applications
+
+ 1) Traditional/Physical Deployment
+ 2) Virtualized Deployment (Hardware level Isolation) 
+ 3) Containerized Deployment(OS level Isolation)
+
+ IQ: 1. What problems have encountered in application 
+        management?
+         In Development environment applications running well in.
+         Testing/QA environment applications running well. 
+         In Production environment applications not running well.  
+
+     2. How many environment are you supporting in your 
+        CURRENT role?
+         1 - Development environment    
+         2 - Testing/QA environment    
+         3 - Production environment 
+
+
+In docker applications run as containers   
+Containers --> contains everything required for an 
+               application to run.  create
+               (App Files (code), Dependencies 
+              (Softwares +Libraries), ENV vars & Other 
+              Configuration files) 
+              which is required for a piece of application
+              /process to run.
+
+Containerise the following applications:
+   app code     = app.war +
+   dependencies = openjdk11+ + tomcat9  
+
+   app code     = app.war + 
+   dependencies = openjdk11+  + jboss/wildFly   
+
+   app code     = app.ear +
+   dependencies = openjdk11+ + jboss/wildFly  
+
+   app code     = app.jar + 
+   dependencies = openjdk11
+
+---
+
+O.S --> Cross Platform (Docker can be installed in any O.S)
+        Docker Can Be Installed on Linux, Windows OS, macOS  
+        Desktops as well as servers.
+
+Containers are an abstraction at the app layer that packages 
+code and dependencies together. Multiple containers can run
+on the same machine and share the OS kernel with other containers, 
+each running as isolated processes in user space. Containers take
+up less space than VMs (container images are typically tens of MBs
+in size), can handle more applications and require fewer VMs and OS.
+
+Docker is available in 2 Editions:
+
+ 1) Docker CE: --> Community Edition  (Free to use)
+ 2) Docker EE: --> Enterprise Edition (Commercial/Licensed)
+     CE+
+     ---
+      1) Vendor Support = docker.io 
+      2) Additional Features like DTR (Docker Trusted Registry),
+      3) UCP (Universal Control Plane) GUI. 
+
+Docker is developed in Go Lang/Go Language. 
+
+Docker Desktop (Local Laptops/Desktops) --> 
+https://docs.docker.com/engine/install/
+  
+
+Linux Flavors :
+ CentOS
+ Amazon Linux
+    Red Hat   :
+ Ubuntu
+ Debian
+ Fedora
+ SUSE Linux …etc.
+
+Officially, Docker CE is not supported for Red Hat. 
+
+Differences between Virtualization and Containerization:
+
+Virtual Machines:              Container:
+- Heavyweight                  - lightweight
+- Limited performance          - Native performance
+- Each VM has it's OS          - OS Virtualization
+- Start-up time in minutes     - Start-up time in milliseconds
+- Allocates required memory    - Requires less memory spaces
+- Fully isolated(more secure)  - Process level isolation, possibly less secure.
+ 
+
+Ticket001: Install and setup docker in ubuntu  
+###########################
+#!/bin/bash
+sudo hostnamectl set-hostname docker
+sudo apt update -y
+sudo apt install docker.io -y
+sudo service docker start
+sudo docker info
+sudo usermod -aG docker ubuntu 
+sudo su - ubuntu    
+sudo docker ps   
+
+
+Amazon Linux:
+#!/bin/bash
+sudo yum update -y    
+sudo yum install docker -y
+sudo service docker start
+sudo usermod -aG docker ec2-user
+sudo su - ec2-user
+
+Docker architecture:
+Docker client = CLI   
+Docker daemon/Service     
+Docker registry 
+
+Docker Images:
+  A Docker image is a lightweight, standalone, 
+  executable package that includes everything 
+  needed to run a piece of software: the code, 
+  a runtime, libraries, environment variables, 
+  and configuration files. 
+
+docker images can either be found locally in our docker 
+build server, or   
+docker can be pulled from docker image registry 
+[dockerhub, ecr, etc].
+
+Standardized Package: A Docker image is a 
+standardized unit that encapsulates all the files, 
+binaries, libraries, and configurations required 
+to run a container.
+
+Immutable Layers: Images are composed of layers 
+of filesystem changes, adding, removing, or modifying 
+files. Once an image is created, it cannot be 
+modified; you can only create a new image or add 
+changes on top of it.
+
+Portability: Because a Docker image contains all 
+dependencies, it can run on any system that has Docker 
+installed, regardless of the underlying infrastructure.
+
+Efficiency: Docker images are designed to be very light
+in weight, which makes them easy to share and quick to 
+launch.
+
+Version Control: Images can be versioned and stored in 
+repositories like Docker Hub, which is a public registry 
+for finding and sharing container images.
+
+In essence, Docker images are the building blocks of 
+containerized applications, providing the environment in 
+which containers run. They are crucial for the 
+development, deployment, and scaling of applications in 
+modern cloud-based infrastructures.
+
+
+DockerHub: (https://hub.docker.com/)
+
+Docker hub is the world's largest library and community
+for container images. Docker Hub is a service provided 
+by Docker for finding and sharing container images with 
+your team. It's a central repository where anyone can 
+publish and share container images, and it's widely used 
+for distributing and pulling container images for use in
+various environments.
+
+Docker Hub features include:
+
+- **Trusted Content**: Access to Docker Official Images
+    and Verified Publisher content.
+- **Public and Private Repositories**: Ability to share
+    container images publicly or privately.
+- **Collaborative Features**: Teams can collaborate by  
+    sharing container images.
+- **Automated Builds**: Automatically build container 
+    images from source code in an online repository.
+
+
+Docker Commands:
+  docker info: 
+  docker pull: --> docker pull nginx
+  docker images: or (docker image ls)  
+  docker run: docker run nginx | docker run -d nginx  
+  docker ps: (docker container ls)
+
+  Every command starts with "docker"
+  docker info: --> to get information about docker
+
+  docker pull: --> docker pull nginx : To pull an image
+                   from dockerhub (Regisrty)
+
+  docker images: or (docker image ls) : to list images
+  docker rmi ImageID/Name : to remove/delete an image
+
+  docker run: docker run nginx | docker run -d nginx 
+              used to launch/start a container 
+  docker run -d --name containerName -p 8080:8080 imageID(or imageName)
+
+  docker ps: 
+  (docker container ls) docker ps -a
+  docker ps: used to list running containers  
+  docker ps -a used to list all containers 
+             (running and stopped)
+
+  docker stop "containerID or Name" : stop a container
+  docker rm "containerID or Name" : remove/delete a container
+
+  docker exec -it /bin/bash : Execute commands in a container
+
+
+What is an image?:
+
+In software development—especially in the context of 
+containerization—an image is a lightweight, standalone, 
+and executable package that includes everything needed 
+to run a piece of software. 
+That means:
+-  Application code
+-  Runtime environment
+-  Libraries and dependencies
+-  System tools and settings
+Think of it like a blueprint or snapshot of an environment.
+
+When you run an image, it becomes a container—a live, isolated 
+instance of that blueprint.
+
+ Why Images Matter:
+- Consistency: The same image runs identically on any system 
+               with Docker (or similar tools), eliminating the 
+               dreaded “works on my machine” problem.
+- Portability: You can move your app across environments—dev, 
+               test, production—without reconfiguring.
+- Versioning: Images can be tagged and versioned, making rollbacks
+              and updates easier.
+
+
+  Docker Deployment Process:
+Deploying an app with Docker is like packaging your 
+entire environment into a box that runs anywhere. 
+
+Step 1: Create a Dockerfile
+This file defines how your app is built and run inside 
+a container.
+
+# Example for a Node.js app
+FROM node:16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+EXPOSE 3000
+CMD ["node", "app.js"]
+
+- FROM: Base image (e.g., Node.js, Python, etc.)
+- WORKDIR: Sets the working directory
+- COPY: Moves files into the container
+- RUN: Executes commands (like installing dependencies)
+- EXPOSE: Opens a port
+- CMD: Specifies the command to run
+
+
+Step2: 
+2. Build the Docker Image
+Run this in your terminal:
+docker build -t my-app .
+
+- my-app is the name of your image
+- . tells Docker to use the current directory
+
+Step3: Run the Container
+Start your app in a container:
+docker run -d -p 3000:3000 my-app
+
+ -d: Detached mode (runs in background)
+ -p: Maps container port to host port
+
+Step4: Push to Docker Hub (Optional)
+If you want to deploy elsewhere:
+docker login
+docker tag my-app username/my-app
+docker push username/my-app
+
+
+Step5: Deploy on a Server
+On your server:
+docker pull username/my-app
+docker run -d -p 80:3000 username/my-app
+
+You can now access your app via the server’s IP or domain.
+
+Note:
+Use Docker Compose for Multi-Service Apps. i.e
+If your app has a database or other services.
+
+
+Exercise:
+
+Use docker to deploy our moneylink app.
+
+Solution:
+1. Write a Dockerfile
+2. Create a docker image
+3. Use the image to create a container 
+4. Access the app on a browser.
+
+# Use the official Tomcat base image
+FROM tomcat:9-jdk17-temurin-jammy
+
+# Maintainer Ayafor Emmanuel
+LABEL maintainer ayafor@zenith-africa.com 
+
+# Remove the default webapps (optional, but good practice for production)
+RUN rm -rf /usr/local/tomcat/webapps/*
+
+# Copy your .war file into the webapps directory
+# Replace your-application.war with the actual name of your .war file
+COPY linkpay.war /usr/local/tomcat/webapps/
+
+# Expose the default Tomcat port
+EXPOSE 8080
+
+# Start Tomcat (default command for the base image)
+CMD ["catalina.sh", "run"]
+
+docker build -t moneylink .
+docker run -p 8080:8080 moneylink
+
+
+---
+
+Ticket:
+    #1. Create an account in DockerHub
+    #2. Download and install docker desktop
+    #3. Login to your docker account on docker desktop.
+
